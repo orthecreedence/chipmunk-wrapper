@@ -6,6 +6,7 @@
 
 (defclass body (base)
   ((c-type :initform :body)
+   (space :accessor body-space :initarg :space :initform nil)
    (shapes :accessor body-shapes :initform nil)
    (x :accessor body-x :initarg :x :initform 0)
    (y :accessor body-y :initarg :y :initform 0)
@@ -26,3 +27,12 @@
       (setf (gethash c-obj *body-registry*) body)
       body)))
 
+(defmethod sync-body ((body body))
+  "Sync a body's position/rotation with its c object."
+  (let ((pos-x (cp-a:body-p-x (base-c body)))
+        (pos-y (cp-a:body-p-y (base-c body)))
+        (angle (cp-a:body-a (base-c body))))
+    (setf (body-x body) pos-x
+          (body-y body) pos-y
+          (body-angle body) angle))
+  body)

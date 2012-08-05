@@ -4,7 +4,7 @@
 ;; still active. once destroyed, it is not allowed to be destroyed again.
 (defclass base ()
   ((c :accessor base-c :initarg :c)
-   (type :accessor base-type :initform :base)
+   (c-type :accessor base-type :initform :base)
    (active :accessor base-active :initform t)))
 
 (defmethod destroy ((obj base))
@@ -16,10 +16,15 @@
   (when (base-active obj)
     ;; destroy the object in c-land
     (case (base-type obj)
-      (:shape (cp:shape-destroy (base-c obj)))
-      (:body (cp:body-destroy (base-c obj)))
-      (:joint (cp:constraint-destroy (base-c obj)))
-      (:space (cp:space-destroy (base-c obj))))
+      (:shape
+        (cp:shape-destroy (base-c obj)))
+      (:body
+        (cp:body-destroy (base-c obj)))
+      (:joint
+        (detach-joint obj)
+        (cp:constraint-destroy (base-c obj)))
+      (:space
+        (cp:space-destroy (base-c obj))))
     ;; mark as inactive so we don't accidentally free it again later
     (setf (base-active obj) nil)
     t))
