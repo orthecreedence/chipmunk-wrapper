@@ -12,11 +12,16 @@
   to call this directly before a C physics object is destroyed so it can be 
   tracked whether or not it's active and possibly save exceptions in the 
   foreign library."
-  (unless (base-active obj)
-    ;(error "Object of type ~A has already been destroyed" (base-type obj))
-    ;(output " - object of type ~a (~a) has already been destroyed.~%" (base-type obj) obj :level +log-notice+)
-    (return-from destroy nil))
-  ;(output " - destroying object of type ~a (~a) : ~a~%" (base-type obj) (if (eql (base-type obj) :shape) (shape-type obj) "") obj)
-  (setf (base-active obj) nil)
-  t)
+  ;; make sure we only free real types
+  (assert (find (base-type obj) '(:shape :body :joint :space)))
+  (when (base-active obj)
+    ;; destroy the object in c-land
+    (case (base-type obj)
+      (:shape (cp:shape-destroy (base-c obj)))
+      (:body (cp:body-destroy (base-c obj)))
+      (:joint (cp:constraint-destroy (base-c obj)))
+      (:space (cp:space-destroy (base-c obj))))
+    ;; mark as inactive so we don't accidentally free it again later
+    (setf (base-active obj) nil)
+    t))
 

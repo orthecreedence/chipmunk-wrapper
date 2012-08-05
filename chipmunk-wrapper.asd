@@ -5,4 +5,7 @@
   :depends-on (#:cffi #:clipmunk)
   :components ((:file "package")
                (:file "base" :depends-on ("package"))
-			   (:file "shape" :depends-on ("base"))))
+			   (:file "joint" :depends-on ("base"))
+			   (:file "shape" :depends-on ("base"))
+			   (:file "body" :depends-on ("shape"))
+			   (:file "space" :depends-on ("body" "joint"))))
