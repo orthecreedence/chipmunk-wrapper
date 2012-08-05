@@ -3,7 +3,7 @@
 ;; defines a very simple class for tracking whether or not a c pointer/class is
 ;; still active. once destroyed, it is not allowed to be destroyed again.
 (defclass base ()
-  ((c :accessor base-c :initarg :phx)
+  ((c :accessor base-c :initarg :c)
    (type :accessor base-type :initform :base)
    (active :accessor base-active :initform t)))
 
@@ -13,10 +13,10 @@
   tracked whether or not it's active and possibly save exceptions in the 
   foreign library."
   (unless (base-active obj)
-    ;(error "Object of type ~A has already been destroyed" (phx-obj-type obj))
-    ;(output " - object of type ~a (~a) has already been destroyed.~%" (phx-obj-type obj) obj :level +log-notice+)
+    ;(error "Object of type ~A has already been destroyed" (base-type obj))
+    ;(output " - object of type ~a (~a) has already been destroyed.~%" (base-type obj) obj :level +log-notice+)
     (return-from destroy nil))
-  ;(output " - destroying object of type ~a (~a) : ~a~%" (phx-obj-type obj) (if (eql (phx-obj-type obj) :shape) (shape-type obj) "") obj)
+  ;(output " - destroying object of type ~a (~a) : ~a~%" (base-type obj) (if (eql (base-type obj) :shape) (shape-type obj) "") obj)
   (setf (base-active obj) nil)
   t)
 
