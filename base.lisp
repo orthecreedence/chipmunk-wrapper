@@ -8,10 +8,9 @@
    (active :accessor base-active :initform t)))
 
 (defmethod destroy ((obj base))
-  "Doesn't really do anything but track internal state of objects. The point is
-  to call this directly before a C physics object is destroyed so it can be 
-  tracked whether or not it's active and possibly save exceptions in the 
-  foreign library."
+  "Call to destroy the c object this physics object wraps and also track whether
+  or not it has been destroyed. Since chipmunk has 4 main types, this is a
+  fairly simple function."
   ;; make sure we only free real types
   (assert (find (base-type obj) '(:shape :body :joint :space)))
   (when (base-active obj)

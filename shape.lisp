@@ -7,17 +7,15 @@
    (type :accessor shape-type :initarg :type :initform nil)
    (body :accessor shape-body :initarg :body :initform nil)))
 
-(defun make-shape (type body create-fn)
+(defmethod make-shape ((type keyword) (body body) (create-fn function))
   "Create a shape. The actual shape creation is completely dependent on the type
   of shape being made, so the second argument is a callback which returns a CFFI
   pointer to a new shape."
-  (assert (find type +shape-types+))
-  (assert (subtypep (type-of body) 'body))
   (let ((c-obj (funcall create-fn body)))
     (assert (cffi:pointerp c-obj))
     (make-instance 'shape :c c-obj :type type :body body)))
 
-(defun shape-circle (body radius offset-x offset-y)
+(defmethod shape-circle ((body body) (radius number) (offset-x number) (offset-y number))
   "Wrapper around the creation of a circle shape."
   (assert (subtypep (type-of body) 'body))
   (cp:circle-shape-new (base-c body)
