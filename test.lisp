@@ -17,8 +17,7 @@
         (cp:body-set-pos (cpw:base-c box-body) 0d0 100d0)
         (cp:body-set-angle (cpw:base-c box-body) (* 30 (/ PI 180)))
         (setf (cp-a:shape-u (cpw:base-c box-shape)) 0.7d0)
-        (cpw:space-add-body space box-body)
-        (cpw:space-add-shape space box-shape)
+        (cpw:space-add-body space box-body :add-all t)
         (loop for time from 0 to 2 by cpw:+dt+ do
           (cpw:sync-space-bodies space)
           (format t "Body: (~a, ~a) rot: ~a~%" (cpw:body-x box-body) (cpw:body-y box-body) (cpw:body-angle box-body))

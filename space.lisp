@@ -23,18 +23,26 @@
       (setf (body-space (space-static-body space)) space)
       space)))
 
-(defmethod space-add-body ((space space) (body body))
-  "Add a body to a space."
+(defmethod space-add-body ((space space) (body body) &key add-all)
+  "Add a body to a space. If :add-all is T then all of the body's shapes will
+  be added to the space along with the body."
   (when (body-space body)
     (error "This body is already added to a space. Remove it first with space-remove-body"))
   (cp:space-add-body (base-c space) (base-c body))
+  (when add-all
+    (dolist (shape (body-shapes body))
+      (space-add-shape space shape)))
   (push body (space-bodies space))
   (setf (body-space body) space))
 
-(defmethod space-remove-body ((space space) (body body))
-  "Remove a body from a space."
+(defmethod space-remove-body ((space space) (body body) &key remove-all)
+  "Remove a body from a space. If :remove-all is T then all of the body's
+  shapes will be removed along with the body."
   (when (eq (body-space body) space)
     (cp:space-remove-body (base-c space) (base-c body))
+    (when remove-all
+      (dolist (shape (body-shapes body))
+        (space-remove-shape space shape)))
     (setf (body-space body) nil)))
 
 (defmethod space-add-shape ((space space) (shape shape))
@@ -75,7 +83,6 @@
       (incf (getf timer :accum) frame-time)
   
       (loop while (>= (getf timer :accum) dt-adjusted) do
-        (format t "Stepping space: ~a~%" (getf timer :accum))
         (cp:space-step (base-c space) +dt+)
         (decf (getf timer :accum) dt-adjusted)))))
 

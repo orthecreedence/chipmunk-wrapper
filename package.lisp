@@ -15,6 +15,8 @@
            #:body-y
            #:body-angle
            #:make-body
+           #:sync-body
+           #:body-sleeping-p
 
            #:shape
            #:shape-space
@@ -24,6 +26,7 @@
            #:shape-circle
            #:shape-segment
            #:shape-poly
+           #:moment-for-poly
 
            #:joint
            #:joint-space

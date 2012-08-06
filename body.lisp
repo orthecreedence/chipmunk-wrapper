@@ -36,3 +36,8 @@
           (body-y body) pos-y
           (body-angle body) angle))
   body)
+
+(defmethod body-sleeping-p ((body body))
+  "Convenience function to test if a body is sleeping or not."
+  (= (cffi:foreign-funcall-pointer (cffi:mem-aref (cffi:foreign-symbol-pointer "_cpBodyIsSleeping") :pointer) () :pointer (base-c body) :int) 1))
+
