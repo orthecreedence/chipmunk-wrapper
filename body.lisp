@@ -29,15 +29,13 @@
 
 (defmethod sync-body ((body body))
   "Sync a body's position/rotation with its c object."
-  (let ((pos-x (cp-a:body-p-x (base-c body)))
-        (pos-y (cp-a:body-p-y (base-c body)))
-        (angle (cp-a:body-a (base-c body))))
-    (setf (body-x body) pos-x
-          (body-y body) pos-y
-          (body-angle body) angle))
+  (setf (body-x body) (cp-a:body-p-x (base-c body))
+        (body-y body) (cp-a:body-p-y (base-c body))
+        (body-angle body) (cp-a:body-a (base-c body)))
   body)
 
+(defparameter *cp-body-is-sleeping* (cffi:mem-aref (cffi:foreign-symbol-pointer "_cpBodyIsSleeping") :pointer))
 (defmethod body-sleeping-p ((body body))
   "Convenience function to test if a body is sleeping or not."
-  (= (cffi:foreign-funcall-pointer (cffi:mem-aref (cffi:foreign-symbol-pointer "_cpBodyIsSleeping") :pointer) () :pointer (base-c body) :int) 1))
+  (= (cffi:foreign-funcall-pointer *cp-body-is-sleeping* () :pointer (base-c body) :int) 1))
 
