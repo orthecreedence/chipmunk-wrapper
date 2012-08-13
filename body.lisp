@@ -8,6 +8,7 @@
   ((c-type :initform :body)
    (space :accessor body-space :initarg :space :initform nil)
    (shapes :accessor body-shapes :initform nil)
+   (joints :accessor body-joints :initform nil)
    (x :accessor body-x :initarg :x :initform 0)
    (y :accessor body-y :initarg :y :initform 0)
    (angle :accessor body-angle :initarg :angle :initform 0)))

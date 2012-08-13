@@ -17,7 +17,7 @@
 (defmethod detach-joint ((joint joint))
   "Detach a joint from a space and its bodies."
   ;; this will remove the constraint from the space AND the bodies
-  (cp:space-remove-constraint (base-c (joint-space space)) (base-c joint))
+  (cp:space-remove-constraint (base-c (joint-space joint)) (base-c joint))
   (setf (joint-space joint) nil
         (body-joints (joint-body1 joint)) (remove joint (body-joints (joint-body1 joint)))
         (body-joints (joint-body2 joint)) (remove joint (body-joints (joint-body2 joint)))))
