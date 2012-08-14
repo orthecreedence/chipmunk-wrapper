@@ -17,6 +17,7 @@
            #:make-body
            #:sync-body
            #:body-sleeping-p
+           #:body-static-p
 
            #:shape
            #:shape-space

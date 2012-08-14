@@ -35,8 +35,11 @@
         (body-angle body) (cp-a:body-a (base-c body)))
   body)
 
-(defparameter *cp-body-is-sleeping* (cffi:mem-aref (cffi:foreign-symbol-pointer "_cpBodyIsSleeping") :pointer))
 (defmethod body-sleeping-p ((body body))
   "Convenience function to test if a body is sleeping or not."
-  (= (cffi:foreign-funcall-pointer *cp-body-is-sleeping* () :pointer (base-c body) :int) 1))
+  (= (cp-f:body-is-sleeping (base-c body)) 1))
+
+(defmethod body-static-p ((body body))
+  "Convenience function to test if a body is sleeping or not."
+  (= (cp-f:body-is-static (base-c body)) 1))
 
