@@ -19,6 +19,7 @@
       (:shape
         (cp:shape-destroy (base-c obj)))
       (:body
+        (remhash (base-c obj) *body-registry*)
         (cp:body-destroy (base-c obj)))
       (:joint
         (detach-joint obj)
