@@ -73,12 +73,12 @@
     (cp:space-remove-constraint (base-c space) (base-c joint))
     (setf (joint-space joint) nil)))
 
-(defmethod space-step ((space space))
+(defmethod space-step ((space space) &key (dt +dt+))
   "Runs the physics simulation using a fixed step based on the +dt+ value."
   (let ((timer (space-timer space)))
     (let* ((new-time (get-internal-real-time))
            (frame-time (- new-time (getf timer :cur-time)))
-           (dt-adjusted (* +dt+ internal-time-units-per-second)))
+           (dt-adjusted (* dt internal-time-units-per-second)))
       (setf (getf timer :cur-time) new-time)
       (incf (getf timer :accum) frame-time)
   
