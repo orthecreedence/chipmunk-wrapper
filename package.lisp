@@ -18,6 +18,7 @@
            #:sync-body
            #:body-sleeping-p
            #:body-static-p
+           #:find-body-from-pointer
 
            #:shape
            #:shape-space

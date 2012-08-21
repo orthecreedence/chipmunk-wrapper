@@ -43,3 +43,7 @@
   "Convenience function to test if a body is sleeping or not."
   (= (cp-f:body-is-static (base-c body)) 1))
 
+(defun find-body-from-pointer (body-c)
+  "Given a C pointer to a chipmunk body, return the the lisp body wrapper object
+  that contains it (if it exists)."
+  (gethash body-c *body-registry*))
