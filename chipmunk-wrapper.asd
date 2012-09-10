@@ -9,4 +9,5 @@
 			   (:file "body" :depends-on ("base"))
 			   (:file "shape" :depends-on ("body"))
 			   (:file "joint" :depends-on ("body"))
-			   (:file "space" :depends-on ("body" "joint"))))
+			   (:file "space" :depends-on ("body" "joint"))
+               (:file "arbiter" :depends-on ("package"))))
