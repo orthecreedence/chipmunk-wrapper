@@ -50,4 +50,7 @@
            #:space-add-joint
            #:space-remove-joint
            #:space-step
-           #:sync-space-bodies))
+           #:sync-space-bodies
+           
+           #:get-arbiter-normal
+           #:get-arbiter-position))
