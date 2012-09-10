@@ -53,4 +53,4 @@
            #:sync-space-bodies
            
            #:get-arbiter-normal
-           #:get-arbiter-position))
+           #:get-arbiter-point))
