@@ -1,6 +1,7 @@
 (defpackage :chipmunk-wrapper
   (:use :cl)
   (:nicknames :cpw)
+  (:shadow cl:space)
   (:export #:+physics-precision+
            #:+dt+
            
