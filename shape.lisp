@@ -1,6 +1,6 @@
 (in-package :chipmunk-wrapper)
 
-(defconstant +shape-types+ '(:circle :segment :poly))
+(define-constant +shape-types+ '(:circle :segment :poly) :test #'equal)
 
 (defclass shape (base)
   ((c-type :initform :shape)
@@ -8,7 +8,7 @@
    (type :accessor shape-type :initarg :type :initform nil)
    (body :accessor shape-body :initarg :body :initform nil)))
 
-(defmethod make-shape ((type keyword) (body body) (create-fn function))
+(defmethod make-shape ((type symbol) (body body) (create-fn function))
   "Create a shape. The actual shape creation is completely dependent on the type
   of shape being made, so the second argument is a callback which returns a CFFI
   pointer to a new shape."

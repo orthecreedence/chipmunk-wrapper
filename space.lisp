@@ -1,6 +1,6 @@
 (in-package :chipmunk-wrapper)
 
-(defconstant +dt+ (coerce (/ 1 60) +physics-precision+))
+(define-constant +dt+ (coerce (/ 1 60) +physics-precision+))
 
 (defclass space (base)
   ((c-type :initform :space)
