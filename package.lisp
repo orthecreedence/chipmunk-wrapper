@@ -52,5 +52,13 @@
            #:space-step
            #:sync-space-bodies
            
+           #:arbiter
+           #:arbiter-elasticity
+           #:arbiter-friction
+           #:arbiter-surface-velocity
+           #:arbiter-contact-count
+           #:arbiter-normals
+           #:arbiter-points
+           #:make-arbiter
            #:get-arbiter-normal
            #:get-arbiter-point))
