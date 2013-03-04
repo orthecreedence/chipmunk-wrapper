@@ -54,12 +54,16 @@
            #:sync-space-bodies
            
            #:arbiter
+           #:arbiter-c
            #:arbiter-elasticity
            #:arbiter-friction
            #:arbiter-surface-velocity
            #:arbiter-contact-count
            #:arbiter-normals
            #:arbiter-points
+           #:arbiter-first-contact-p
+           #:arbiter-ignore-collision
            #:make-arbiter
            #:get-arbiter-normal
-           #:get-arbiter-point))
+           #:get-arbiter-point
+           #:sync-arbiter-to-c))
