@@ -11,9 +11,10 @@
    (joints :accessor body-joints :initform nil)
    (x :accessor body-x :initarg :x :initform 0)
    (y :accessor body-y :initarg :y :initform 0)
-   (angle :accessor body-angle :initarg :angle :initform 0)))
+   (angle :accessor body-angle :initarg :angle :initform 0)
+   (data :accessor body-data :initarg :data :initform nil)))
 
-(defun make-body (create-fn)
+(defun make-body (create-fn &key data)
   "Create a new body. Body creation can be involved (calculating MOI and mass)
   and as such is done so through the create-fn given. Once created, the body is
   added to body registry, which allows the lisp body object to be referenced by
@@ -24,7 +25,7 @@
   values with the c object on every space run automatically."
   (let ((c-obj (funcall create-fn)))
     (assert (cffi:pointerp c-obj))
-    (let ((body (make-instance 'body :c c-obj)))
+    (let ((body (make-instance 'body :c c-obj :data data)))
       (setf (gethash c-obj *body-registry*) body)
       body)))
 

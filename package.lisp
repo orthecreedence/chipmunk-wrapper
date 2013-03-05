@@ -15,6 +15,7 @@
            #:body-x
            #:body-y
            #:body-angle
+           #:body-data
            #:make-body
            #:sync-body
            #:body-sleeping-p
